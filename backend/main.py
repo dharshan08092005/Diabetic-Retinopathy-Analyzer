@@ -17,14 +17,14 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[FRONTEND_URL, "*"], # Allow frontend URL explicitly, and keep * for fallback or just the frontend URL depending on strictness. The user wants it to reflect the variable. Let's use [FRONTEND_URL] or ["*"] 
+    allow_origins=[FRONTEND_URL], # Allow frontend URL explicitly, and keep * for fallback or just the frontend URL depending on strictness. The user wants it to reflect the variable. Let's use [FRONTEND_URL] or ["*"] 
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 # Load model
 # Load model
-MODEL_PATH = "D:/DR-Detection-System/model/dr_model.keras"
+MODEL_PATH = "model/dr_model.keras"
 model = None
 
 try:
