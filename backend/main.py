@@ -23,10 +23,23 @@ app.add_middleware(
 )
 
 # Load model
-MODEL_PATH = "model/dr_model.keras"
+# Load model
+MODEL_PATH = "D:/DR-Detection-System/model/dr_model.keras"
 model = None
 
 try:
+    import keras
+    from unittest.mock import patch
+    
+    original_from_config = keras.layers.Dense.from_config.__func__
+    
+    @classmethod
+    def patched_from_config(cls, config):
+        config.pop('quantization_config', None)
+        return original_from_config(cls, config)
+    
+    keras.layers.Dense.from_config = patched_from_config
+    
     model = tf.keras.models.load_model(
         MODEL_PATH,
         compile=False,
